@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+  
+# Make sure extensions includes the PDF embed one
+extensions:
+  - jmgirard/embedpdf
+
+website:
+  title: "Nujoum's Website"
+  navbar:
+    left:
+      - href: index.qmd
+        text: About
+      - resume.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+
+

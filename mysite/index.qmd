@@ -1,0 +1,30 @@
+---
+title: "Nujoum Unus"
+image: 'images/Nujoum Unus.jpg'
+about:
+    template: jolla
+    links:
+    - icon: github
+      text: Github
+      href: https://github.com
+    - icon: envelope
+      href: mailto:nunus@ucsd.edu
+    - icon: linkedin
+      href: https://www.linkedin.com/in/nujoum-unus/
+  
+---
+Nujoum Unus is the Chief Data Scientist at Wengo Analytics. When not innovating on data platforms, Nujoum enjoys spending time unicycling and playing with her pet iguana.
+
+## Education
+
+University of California, San Diego | San Diego, CA
+MS Business Analytics | Aug 2024 - Dec 2025
+
+A.P.J. Abdul Kalam Technological University | Kerala, India
+B.Tech in Computer Science and Engineering | July 2019 - June 2023
+
+## Experience
+
+Wengo Analytics | Head Data Scientist | April 2018 - present
+
+GeoScynce | Chief Analyst | Spet 2012 - April 2018

@@ -1,0 +1,5 @@
+---
+title: "Resume"
+---
+
+{{< pdf /resume/Nujoum_Unus_Resume.pdf width=100% height=800 >}}

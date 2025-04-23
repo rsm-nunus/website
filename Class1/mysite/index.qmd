@@ -13,7 +13,7 @@ about:
       href: https://www.linkedin.com/in/nujoum-unus/
   
 ---
-Nujoum Unus is the Chief Data Scientist at Wengo Analytics. When not innovating on data platforms, Nujoum enjoys spending time unicycling and playing with her pet iguana.
+Nujoum Unus is pursuing her Masters in Business Analytics at the University of California, San Diego. A dedicated data science student with a passion for harnessing the power of machine learning, NLP, and generative AI to solve real-world business challenges; she excels in transforming complex datasets into strategic insights that drive decision-making and efficiency.
 
 ## Education
 

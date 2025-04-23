@@ -14,7 +14,7 @@ website:
         text: About
       - resume.qmd
       - href: hw1_questions.qmd
-        text: A/B Testing
+        text: A/B Testingj
 
 format:
   html:

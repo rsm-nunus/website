@@ -11,15 +11,13 @@ jupyter: python3
 
 Dean Karlan at Yale and John List at the University of Chicago conducted a field experiment to test the effectiveness of different fundraising letters. They sent out 50,000 fundraising letters to potential donors, randomly assigning each letter to one of three treatments: a standard letter, a matching grant letter, or a challenge grant letter. They published the results of this experiment in the _American Economic Review_ in 2007. The article and supporting data are available from the [AEA website](https://www.aeaweb.org/articles?id=10.1257/aer.97.5.1774) and from Innovations for Poverty Action as part of [Harvard's Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27853&version=4.2).
 
-_to do: expand on the description of the experiment._
-
-<b> Background </b>
+## Background 
 
 Charitable organizations often rely on fundraising letters to solicit donations, but little rigorous evidence has been available to guide how those letters should be designed. In a groundbreaking field experiment, economists Dean Karlan and John List set out to test how different **framing strategies and financial incentives** affect individual donation behavior.
 
 The experiment, conducted in collaboration with a politically-oriented nonprofit organization, involved mailing **50,083 fundraising letters** to previous donors. Crucially, the recipients were **randomly assigned** to different treatment groups, allowing the researchers to measure **causal effects** rather than mere correlations.
 
-<b> Purpose of the Study </b>
+## Purpose of the Study
 
 Karlan and List aimed to answer a simple but important question:  
 > *Do people give more when their donation is matched? And if so, does the size of the match matter?*
@@ -67,7 +65,7 @@ This study represents one of the first **large-scale natural field experiments**
 - Whether people respond to thresholds or suggested amounts  
 - The heterogeneous effects by donor characteristics and geography
 
-<b> Project Overview </b>
+## Project Overview
 
 In this replication study, we use the same dataset provided by Karlan and List to:
 
@@ -83,7 +81,6 @@ This report follows a structured analysis of donation likelihood, donation size,
 
 ### Description
 
-_todo: Read the data into R/Python and describe the data_
 
 :::: {.callout-note collapse="true"}
 ### Variable Definitions
@@ -143,6 +140,11 @@ _todo: Read the data into R/Python and describe the data_
 | `pop_propurban`      | Proportion of population urban within zip code                      |
 
 ::::
+### Dataset Overview
+
+The dataset contains over 50,000 observations from a field experiment in charitable giving. Variables include treatment assignments, donation behavior, match ratio conditions, prior giving history, and demographic information.
+
+Below is a summary of key variable distributions and data structure.
 ```{python}
 import pandas as pd
 df = pd.read_stata('karlan_list_2007.dta')
@@ -179,6 +181,20 @@ import statsmodels.formula.api as smf
 # Regression of mrm2 on treatment
 model = smf.ols("mrm2 ~ treatment", data=df_clean).fit()
 model.summary()
+
+# Extract relevant results
+results_table = pd.DataFrame({
+    'Variable': model.params.index,
+    'Coefficient': model.params.values,
+    'Std. Error': model.bse.values,
+    'p-value': model.pvalues.values,
+    '95% CI Lower': model.conf_int()[0].values,
+    '95% CI Upper': model.conf_int()[1].values
+})
+
+# Round for presentation
+results_table = results_table.round(4)
+results_table
 
 
 ```
@@ -248,11 +264,27 @@ gave_treat = df[df['treatment'] == 1]['gave']
 gave_control = df[df['control'] == 1]['gave']
 t_stat, p_val = ttest_ind(gave_treat, gave_control, equal_var=False)
 
+# Display t-test result
+print(f"T-test result:\nt = {t_stat:.3f}, p = {p_val:.4f}\n")
+
 # Regression: response as a function of treatment
 reg_gave = smf.ols('gave ~ treatment', data=df).fit()
 
-t_stat, p_val, reg_gave.summary()
+print('Regression Results:')
+# Extract and format regression results
+results_table = pd.DataFrame({
+    'Variable': reg_gave.params.index,
+    'Coefficient': reg_gave.params.values,
+    'Std. Error': reg_gave.bse.values,
+    'p-value': reg_gave.pvalues.values,
+    '95% CI Lower': reg_gave.conf_int()[0].values,
+    '95% CI Upper': reg_gave.conf_int()[1].values
+}).round(4)
+
+results_table
+
 ```
+
 <b> Charitable Contribution Made </b>
 
 We examine whether receiving a matching donation offer increases the likelihood of making a charitable donation. This is measured using the binary variable `gave`, which equals 1 if a donation was made and 0 otherwise.
@@ -310,8 +342,21 @@ y = df["gave"]
 probit_model = sm.Probit(y, X)
 probit_results = probit_model.fit()
 
-probit_results.summary()
+# probit_results.summary()
 
+
+# Extract and format Probit results
+probit_table = pd.DataFrame({
+    "Variable": probit_results.params.index,
+    "Coefficient": probit_results.params.values,
+    "Std. Error": probit_results.bse.values,
+    "z-value": probit_results.tvalues,
+    "p-value": probit_results.pvalues,
+    "95% CI Lower": probit_results.conf_int()[0],
+    "95% CI Upper": probit_results.conf_int()[1]
+}).round(4)
+print("\nProbit Results:")
+probit_table
 ```
 
 <b> Probit Regression: Impact of Matching Grant on Donation Likelihood </b>
@@ -384,7 +429,16 @@ ttest_1_vs_2 = ttest_ind(gave_1_1, gave_2_1, equal_var=False)
 ttest_1_vs_3 = ttest_ind(gave_1_1, gave_3_1, equal_var=False)
 ttest_2_vs_3 = ttest_ind(gave_2_1, gave_3_1, equal_var=False)
 
-ttest_1_vs_2, ttest_1_vs_3, ttest_2_vs_3
+# ttest_1_vs_2, ttest_1_vs_3, ttest_2_vs_3
+
+# Create clean results table
+t_test_results = pd.DataFrame({
+    "Comparison": ["1:1 vs 2:1", "1:1 vs 3:1", "2:1 vs 3:1"],
+    "t-statistic": [ttest_1_vs_2.statistic, ttest_1_vs_3.statistic, ttest_2_vs_3.statistic],
+    "p-value": [ttest_1_vs_2.pvalue, ttest_1_vs_3.pvalue, ttest_2_vs_3.pvalue]
+}).round(4)
+print('t test Results:')
+t_test_results
 
 ```
 
@@ -446,7 +500,21 @@ X = df_ratio[['ratio1', 'ratio2', 'ratio3']]
 y = df_ratio['gave']
 model = sm.OLS(y, X).fit()
 
-model.summary()
+# model.summary()
+
+
+# Format regression output
+ratio_reg_table = pd.DataFrame({
+    "Match Ratio": ["1:1", "2:1", "3:1"],
+    "Coefficient": model.params.values,
+    "Std. Error": model.bse.values,
+    "p-value": model.pvalues.values,
+    "95% CI Lower": model.conf_int()[0].values,
+    "95% CI Upper": model.conf_int()[1].values
+}).round(4)
+
+print('Reression Results:')
+ratio_reg_table
 
 ```
 <b> Behavioral Insight: Why Match Size Doesn't Matter (Much) </b>
@@ -497,10 +565,19 @@ coef_3_1 = model.params["ratio3"]
 coef_diff_2_1_vs_1_1 = coef_2_1 - coef_1_1
 coef_diff_3_1_vs_2_1 = coef_3_1 - coef_2_1
 
-(mean_1_1, mean_2_1, mean_3_1,
- diff_2_1_vs_1_1, diff_3_1_vs_2_1,
- coef_diff_2_1_vs_1_1, coef_diff_3_1_vs_2_1)
+# (mean_1_1, mean_2_1, mean_3_1,
+#  diff_2_1_vs_1_1, diff_3_1_vs_2_1,
+#  coef_diff_2_1_vs_1_1, coef_diff_3_1_vs_2_1)
 
+
+# Organize values into a formatted summary table
+comparison_table = pd.DataFrame({
+    "Comparison": ["2:1 vs 1:1", "3:1 vs 2:1"],
+    "Diff (means)": [diff_2_1_vs_1_1, diff_3_1_vs_2_1],
+    "Diff (regression coefficients)": [coef_diff_2_1_vs_1_1, coef_diff_3_1_vs_2_1]
+}).round(5)
+print('Results:')
+comparison_table
 ```
 <b> Comparing Response Rates Across Match Ratios </b>
 
@@ -556,7 +633,19 @@ amount_ttest = ttest_ind(amount_treat, amount_control, equal_var=False)
 # Run a bivariate linear regression: amount ~ treatment
 amount_reg = smf.ols('amount ~ treatment', data=df).fit()
 
-amount_ttest.statistic, amount_ttest.pvalue, amount_reg.summary()
+# amount_ttest.statistic, amount_ttest.pvalue, amount_reg.summary()
+
+# Format regression output into a clean table
+amount_table = pd.DataFrame({
+    "Variable": amount_reg.params.index,
+    "Coefficient": amount_reg.params.values,
+    "Std. Error": amount_reg.bse.values,
+    "p-value": amount_reg.pvalues.values,
+    "95% CI Lower": amount_reg.conf_int()[0].values,
+    "95% CI Upper": amount_reg.conf_int()[1].values
+}).round(4)
+
+amount_table
 
 ```
 <b> Size of Charitable Contribution </b>
@@ -598,7 +687,21 @@ amount_ttest_pos = ttest_ind(amount_treat_pos, amount_control_pos, equal_var=Fal
 # Regression: amount ~ treatment (for donors only)
 amount_reg_pos = smf.ols('amount ~ treatment', data=df_positive).fit()
 
-amount_ttest_pos.statistic, amount_ttest_pos.pvalue, amount_reg_pos.summary()
+# amount_ttest_pos.statistic, amount_ttest_pos.pvalue, amount_reg_pos.summary()
+
+
+# Clean regression summary
+amount_conditional_table = pd.DataFrame({
+    "Variable": amount_reg_pos.params.index,
+    "Coefficient": amount_reg_pos.params.values,
+    "Std. Error": amount_reg_pos.bse.values,
+    "p-value": amount_reg_pos.pvalues.values,
+    "95% CI Lower": amount_reg_pos.conf_int()[0].values,
+    "95% CI Upper": amount_reg_pos.conf_int()[1].values
+}).round(4)
+
+amount_conditional_table
+
 ```
 <b> Conditional Donation Amount: Among Donors Only </b>
 

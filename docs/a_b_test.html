@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>a_b_test – Nujoum's Website</title>
+<title>Experimental Results – Nujoum’s Website</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,24 +148,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#charitable-contribution-made" id="toc-charitable-contribution-made" class="nav-link active" data-scroll-target="#charitable-contribution-made">Charitable Contribution Made</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Experimental Results</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<div id="8835b43c" class="cell" data-execution_count="2">
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="8835b43c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="66eb0df0" class="cell" data-execution_count="3">
+<div id="66eb0df0" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_stata(<span class="st">'karlan_list_2007.dta'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="df2290a4" class="cell" data-execution_count="5">
+<div id="df2290a4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -396,8 +418,480 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<div id="86d53436" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 50083 entries, 0 to 50082
+Data columns (total 51 columns):
+ #   Column              Non-Null Count  Dtype   
+---  ------              --------------  -----   
+ 0   treatment           50083 non-null  int8    
+ 1   control             50083 non-null  int8    
+ 2   ratio               50083 non-null  category
+ 3   ratio2              50083 non-null  int8    
+ 4   ratio3              50083 non-null  int8    
+ 5   size                50083 non-null  category
+ 6   size25              50083 non-null  int8    
+ 7   size50              50083 non-null  int8    
+ 8   size100             50083 non-null  int8    
+ 9   sizeno              50083 non-null  int8    
+ 10  ask                 50083 non-null  category
+ 11  askd1               50083 non-null  int8    
+ 12  askd2               50083 non-null  int8    
+ 13  askd3               50083 non-null  int8    
+ 14  ask1                50083 non-null  int16   
+ 15  ask2                50083 non-null  int16   
+ 16  ask3                50083 non-null  int16   
+ 17  amount              50083 non-null  float32 
+ 18  gave                50083 non-null  int8    
+ 19  amountchange        50083 non-null  float32 
+ 20  hpa                 50083 non-null  float32 
+ 21  ltmedmra            50083 non-null  int8    
+ 22  freq                50083 non-null  int16   
+ 23  years               50082 non-null  float64 
+ 24  year5               50083 non-null  int8    
+ 25  mrm2                50082 non-null  float64 
+ 26  dormant             50083 non-null  int8    
+ 27  female              48972 non-null  float64 
+ 28  couple              48935 non-null  float64 
+ 29  state50one          50083 non-null  int8    
+ 30  nonlit              49631 non-null  float64 
+ 31  cases               49631 non-null  float64 
+ 32  statecnt            50083 non-null  float32 
+ 33  stateresponse       50083 non-null  float32 
+ 34  stateresponset      50083 non-null  float32 
+ 35  stateresponsec      50080 non-null  float32 
+ 36  stateresponsetminc  50080 non-null  float32 
+ 37  perbush             50048 non-null  float32 
+ 38  close25             50048 non-null  float64 
+ 39  red0                50048 non-null  float64 
+ 40  blue0               50048 non-null  float64 
+ 41  redcty              49978 non-null  float64 
+ 42  bluecty             49978 non-null  float64 
+ 43  pwhite              48217 non-null  float32 
+ 44  pblack              48047 non-null  float32 
+ 45  page18_39           48217 non-null  float32 
+ 46  ave_hh_sz           48221 non-null  float32 
+ 47  median_hhincome     48209 non-null  float64 
+ 48  powner              48214 non-null  float32 
+ 49  psch_atlstba        48215 non-null  float32 
+ 50  pop_propurban       48217 non-null  float32 
+dtypes: category(3), float32(16), float64(12), int16(4), int8(16)
+memory usage: 8.9 MB</code></pre>
+</div>
+</div>
+<div id="86363fa1" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate data into treatment and control groups</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>treatment_group <span class="op">=</span> df[df[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>control_group <span class="op">=</span> df[df[<span class="st">'control'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># T-test: mrm2 (months since last donation)</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>ttest_result <span class="op">=</span> stats.ttest_ind(treatment_group[<span class="st">'mrm2'</span>].dropna(), control_group[<span class="st">'mrm2'</span>].dropna(), equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear regression: mrm2 ~ treatment</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>df_reg <span class="op">=</span> df[[<span class="st">'mrm2'</span>, <span class="st">'treatment'</span>]].dropna()</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>reg_result <span class="op">=</span> smf.ols(<span class="st">'mrm2 ~ treatment'</span>, data<span class="op">=</span>df_reg).fit()</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>ttest_result, reg_result.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>(TtestResult(statistic=0.11953155228177251, pvalue=0.9048549631450832, df=33394.47581389535),
+ &lt;class 'statsmodels.iolib.summary.Summary'&gt;
+ """
+                             OLS Regression Results                            
+ ==============================================================================
+ Dep. Variable:                   mrm2   R-squared:                       0.000
+ Model:                            OLS   Adj. R-squared:                 -0.000
+ Method:                 Least Squares   F-statistic:                   0.01428
+ Date:                Wed, 23 Apr 2025   Prob (F-statistic):              0.905
+ Time:                        15:29:10   Log-Likelihood:            -1.9585e+05
+ No. Observations:               50082   AIC:                         3.917e+05
+ Df Residuals:                   50080   BIC:                         3.917e+05
+ Df Model:                           1                                         
+ Covariance Type:            nonrobust                                         
+ ==============================================================================
+                  coef    std err          t      P&gt;|t|      [0.025      0.975]
+ ------------------------------------------------------------------------------
+ Intercept     12.9981      0.094    138.979      0.000      12.815      13.181
+ treatment      0.0137      0.115      0.119      0.905      -0.211       0.238
+ ==============================================================================
+ Omnibus:                     8031.352   Durbin-Watson:                   2.004
+ Prob(Omnibus):                  0.000   Jarque-Bera (JB):            12471.135
+ Skew:                           1.163   Prob(JB):                         0.00
+ Kurtosis:                       3.751   Cond. No.                         3.23
+ ==============================================================================
+ 
+ Notes:
+ [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+ """)</code></pre>
+</div>
+</div>
+<section id="charitable-contribution-made" class="level3">
+<h3 class="anchored" data-anchor-id="charitable-contribution-made">Charitable Contribution Made</h3>
+<p>First, I analyze whether matched donations lead to an increased response rate of making a donation.</p>
+<p><em>todo: make a barplot with two bars. Each bar is the proportion of people who donated. One bar for treatment and one bar for control.</em></p>
+<div id="777d0851" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>gave_by_group <span class="op">=</span> df.groupby(<span class="st">"treatment"</span>)[<span class="st">"gave"</span>].mean().reset_index()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>gave_by_group[<span class="st">"group"</span>] <span class="op">=</span> gave_by_group[<span class="st">"treatment"</span>].<span class="bu">map</span>({<span class="dv">0</span>: <span class="st">"Control"</span>, <span class="dv">1</span>: <span class="st">"Treatment"</span>})</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.bar(gave_by_group[<span class="st">"group"</span>], gave_by_group[<span class="st">"gave"</span>], width<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Proportion Who Donated by Group"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Proportion Gave"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, gave_by_group[<span class="st">"gave"</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">0.01</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="a_b_test_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>todo: run a t-test between the treatment and control groups on the binary outcome of whether any charitable donation was made. Also run a bivariate linear regression that demonstrates the same finding. (It may help to confirm your calculations match Table 2a Panel A.) Report your statistical results and interpret them in the context of the experiment (e.g., if you found a difference with a small p-value or that was statistically significant at some threshold, what have you learned about human behavior? Use mostly English words, not numbers or stats, to explain your finding.)</em></p>
+<div id="daea43ef" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-import libraries and reload data due to kernel reset</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_stata(<span class="st">"karlan_list_2007.dta"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure binary outcome is correctly typed</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'gave'</span>] <span class="op">=</span> df[<span class="st">'gave'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># T-test: response rate (gave) between treatment and control groups</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>gave_treat <span class="op">=</span> df[df[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>gave_control <span class="op">=</span> df[df[<span class="st">'control'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'gave'</span>]</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>t_stat, p_val <span class="op">=</span> ttest_ind(gave_treat, gave_control, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression: response as a function of treatment</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>reg_gave <span class="op">=</span> smf.ols(<span class="st">'gave ~ treatment'</span>, data<span class="op">=</span>df).fit()</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>t_stat, p_val, reg_gave.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>(3.2094621908279835,
+ 0.0013309823450914173,
+ &lt;class 'statsmodels.iolib.summary.Summary'&gt;
+ """
+                             OLS Regression Results                            
+ ==============================================================================
+ Dep. Variable:                   gave   R-squared:                       0.000
+ Model:                            OLS   Adj. R-squared:                  0.000
+ Method:                 Least Squares   F-statistic:                     9.618
+ Date:                Wed, 23 Apr 2025   Prob (F-statistic):            0.00193
+ Time:                        21:04:50   Log-Likelihood:                 26630.
+ No. Observations:               50083   AIC:                        -5.326e+04
+ Df Residuals:                   50081   BIC:                        -5.324e+04
+ Df Model:                           1                                         
+ Covariance Type:            nonrobust                                         
+ ==============================================================================
+                  coef    std err          t      P&gt;|t|      [0.025      0.975]
+ ------------------------------------------------------------------------------
+ Intercept      0.0179      0.001     16.225      0.000       0.016       0.020
+ treatment      0.0042      0.001      3.101      0.002       0.002       0.007
+ ==============================================================================
+ Omnibus:                    59814.280   Durbin-Watson:                   2.005
+ Prob(Omnibus):                  0.000   Jarque-Bera (JB):          4317152.727
+ Skew:                           6.740   Prob(JB):                         0.00
+ Kurtosis:                      46.440   Cond. No.                         3.23
+ ==============================================================================
+ 
+ Notes:
+ [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+ """)</code></pre>
+</div>
+</div>
+<div id="76f4cdb4" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the variables</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(df[<span class="st">"treatment"</span>])</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"gave"</span>]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the Probit regression</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>probit_model <span class="op">=</span> sm.Probit(y, X)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>probit_results <span class="op">=</span> probit_model.fit()</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>probit_results.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimization terminated successfully.
+         Current function value: 0.100443
+         Iterations 7</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Probit Regression Results</caption>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Dep. Variable:</td>
+<td>gave</td>
+<td data-quarto-table-cell-role="th">No. Observations:</td>
+<td>50083</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Model:</td>
+<td>Probit</td>
+<td data-quarto-table-cell-role="th">Df Residuals:</td>
+<td>50081</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Method:</td>
+<td>MLE</td>
+<td data-quarto-table-cell-role="th">Df Model:</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Date:</td>
+<td>Wed, 23 Apr 2025</td>
+<td data-quarto-table-cell-role="th">Pseudo R-squ.:</td>
+<td>0.0009783</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Time:</td>
+<td>21:22:42</td>
+<td data-quarto-table-cell-role="th">Log-Likelihood:</td>
+<td>-5030.5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">converged:</td>
+<td>True</td>
+<td data-quarto-table-cell-role="th">LL-Null:</td>
+<td>-5035.4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Covariance Type:</td>
+<td>nonrobust</td>
+<td data-quarto-table-cell-role="th">LLR p-value:</td>
+<td>0.001696</td>
+</tr>
+</tbody>
+</table>
 
 
+<table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td></td>
+<td data-quarto-table-cell-role="th">coef</td>
+<td data-quarto-table-cell-role="th">std err</td>
+<td data-quarto-table-cell-role="th">z</td>
+<td data-quarto-table-cell-role="th">P&gt;|z|</td>
+<td data-quarto-table-cell-role="th">[0.025</td>
+<td data-quarto-table-cell-role="th">0.975]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">const</td>
+<td>-2.1001</td>
+<td>0.023</td>
+<td>-90.073</td>
+<td>0.000</td>
+<td>-2.146</td>
+<td>-2.054</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">treatment</td>
+<td>0.0868</td>
+<td>0.028</td>
+<td>3.113</td>
+<td>0.002</td>
+<td>0.032</td>
+<td>0.141</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="ee73cb72" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the data for different match ratios</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># According to the dataset: ratio = '1', '2', '3' for 1:1, 2:1, 3:1</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>df_ratio <span class="op">=</span> df[df[<span class="st">"treatment"</span>] <span class="op">==</span> <span class="dv">1</span>].copy()</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df_ratio[<span class="st">"ratio"</span>] <span class="op">=</span> df_ratio[<span class="st">"ratio"</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract binary 'gave' for each match ratio group</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>gave_1_1 <span class="op">=</span> df_ratio[df_ratio[<span class="st">"ratio"</span>] <span class="op">==</span> <span class="st">"1"</span>][<span class="st">"gave"</span>]</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>gave_2_1 <span class="op">=</span> df_ratio[df_ratio[<span class="st">"ratio"</span>] <span class="op">==</span> <span class="st">"2"</span>][<span class="st">"gave"</span>]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>gave_3_1 <span class="op">=</span> df_ratio[df_ratio[<span class="st">"ratio"</span>] <span class="op">==</span> <span class="st">"3"</span>][<span class="st">"gave"</span>]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform t-tests between match ratio groups</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>ttest_1_vs_2 <span class="op">=</span> ttest_ind(gave_1_1, gave_2_1, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>ttest_1_vs_3 <span class="op">=</span> ttest_ind(gave_1_1, gave_3_1, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>ttest_2_vs_3 <span class="op">=</span> ttest_ind(gave_2_1, gave_3_1, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>ttest_1_vs_2, ttest_1_vs_3, ttest_2_vs_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>(TtestResult(statistic=-0.965048975142932, pvalue=0.33453078237183076, df=22225.07770983836),
+ TtestResult(statistic=-1.0150174470156275, pvalue=0.31010856527625774, df=22215.0529778684),
+ TtestResult(statistic=-0.05011581369764474, pvalue=0.9600305476940865, df=22260.84918918778))</code></pre>
+</div>
+</div>
+<div id="3d110bc3" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure 'gave' is binary</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'gave'</span>] <span class="op">=</span> df[<span class="st">'gave'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy variables for each match ratio</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This is only for treatment group, so filter and prepare accordingly</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>df_ratio <span class="op">=</span> df[df[<span class="st">'treatment'</span>] <span class="op">==</span> <span class="dv">1</span>].copy()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>df_ratio[<span class="st">'ratio'</span>] <span class="op">=</span> df_ratio[<span class="st">'ratio'</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy variables: ratio1, ratio2, ratio3</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>df_ratio[<span class="st">'ratio1'</span>] <span class="op">=</span> (df_ratio[<span class="st">'ratio'</span>] <span class="op">==</span> <span class="st">'1'</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>df_ratio[<span class="st">'ratio2'</span>] <span class="op">=</span> (df_ratio[<span class="st">'ratio'</span>] <span class="op">==</span> <span class="st">'2'</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>df_ratio[<span class="st">'ratio3'</span>] <span class="op">=</span> (df_ratio[<span class="st">'ratio'</span>] <span class="op">==</span> <span class="st">'3'</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression: gave ~ ratio1 + ratio2 + ratio3 (no intercept)</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_ratio[[<span class="st">'ratio1'</span>, <span class="st">'ratio2'</span>, <span class="st">'ratio3'</span>]]</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_ratio[<span class="st">'gave'</span>]</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>OLS Regression Results</caption>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Dep. Variable:</td>
+<td>gave</td>
+<td data-quarto-table-cell-role="th">R-squared:</td>
+<td>0.000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Model:</td>
+<td>OLS</td>
+<td data-quarto-table-cell-role="th">Adj. R-squared:</td>
+<td>-0.000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Method:</td>
+<td>Least Squares</td>
+<td data-quarto-table-cell-role="th">F-statistic:</td>
+<td>0.6454</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Date:</td>
+<td>Wed, 23 Apr 2025</td>
+<td data-quarto-table-cell-role="th">Prob (F-statistic):</td>
+<td>0.524</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Time:</td>
+<td>21:40:37</td>
+<td data-quarto-table-cell-role="th">Log-Likelihood:</td>
+<td>16688.</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">No. Observations:</td>
+<td>33396</td>
+<td data-quarto-table-cell-role="th">AIC:</td>
+<td>-3.337e+04</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Df Residuals:</td>
+<td>33393</td>
+<td data-quarto-table-cell-role="th">BIC:</td>
+<td>-3.334e+04</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Df Model:</td>
+<td>2</td>
+<td data-quarto-table-cell-role="th"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Covariance Type:</td>
+<td>nonrobust</td>
+<td data-quarto-table-cell-role="th"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td></td>
+<td data-quarto-table-cell-role="th">coef</td>
+<td data-quarto-table-cell-role="th">std err</td>
+<td data-quarto-table-cell-role="th">t</td>
+<td data-quarto-table-cell-role="th">P&gt;|t|</td>
+<td data-quarto-table-cell-role="th">[0.025</td>
+<td data-quarto-table-cell-role="th">0.975]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">ratio1</td>
+<td>0.0207</td>
+<td>0.001</td>
+<td>14.912</td>
+<td>0.000</td>
+<td>0.018</td>
+<td>0.023</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">ratio2</td>
+<td>0.0226</td>
+<td>0.001</td>
+<td>16.267</td>
+<td>0.000</td>
+<td>0.020</td>
+<td>0.025</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">ratio3</td>
+<td>0.0227</td>
+<td>0.001</td>
+<td>16.335</td>
+<td>0.000</td>
+<td>0.020</td>
+<td>0.025</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Omnibus:</td>
+<td>38963.957</td>
+<td data-quarto-table-cell-role="th">Durbin-Watson:</td>
+<td>1.995</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Prob(Omnibus):</td>
+<td>0.000</td>
+<td data-quarto-table-cell-role="th">Jarque-Bera (JB):</td>
+<td>2506478.937</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Skew:</td>
+<td>6.511</td>
+<td data-quarto-table-cell-role="th">Prob(JB):</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Kurtosis:</td>
+<td>43.394</td>
+<td data-quarto-table-cell-role="th">Cond. No.</td>
+<td>1.00</td>
+</tr>
+</tbody>
+</table>
+<br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</div>
+</div>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

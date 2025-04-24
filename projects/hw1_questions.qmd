@@ -67,7 +67,7 @@ This study represents one of the first **large-scale natural field experiments**
 
 ## Project Overview
 
-In this replication study, we use the same dataset provided by Karlan and List to:
+In this replication study, I used the same dataset provided by Karlan and List to:
 
 - Reproduce their key findings
 - Validate the statistical robustness of their claims
@@ -156,7 +156,7 @@ df.describe()
 
 As an ad hoc test of the randomization mechanism, I provide a series of tests that compare aspects of the treatment and control groups to assess whether they are statistically significantly different from one another.
 
-We tested whether the treatment and control groups differed in prior donor behavior by comparing the number of months since last donation (mrm2). Both a two-sample t-test (t = 0.120, p = 0.905) and a linear regression of mrm2 ~ treatment (β = 0.0137, p = 0.905) confirm no statistically significant difference. This supports the randomization mechanism and matches Table 1 in Karlan and List (2007).
+I tested whether the treatment and control groups differed in prior donor behavior by comparing the number of months since last donation (mrm2). Both a two-sample t-test (t = 0.120, p = 0.905) and a linear regression of mrm2 ~ treatment (β = 0.0137, p = 0.905) confirm no statistically significant difference. This supports the randomization mechanism and matches Table 1 in Karlan and List (2007).
 
 ```{python}
 from scipy import stats
@@ -199,7 +199,7 @@ results_table
 
 <b> Interpretation </b>
 
-We assess balance between treatment and control groups using both statistical methods:
+I assessed the balance between treatment and control groups using both statistical methods:
 
 - **T-Test**:  
   - *t* = 0.120, *p* = 0.905  
@@ -240,7 +240,7 @@ plt.show()
 
 ```
 
-We compare the **response rate** (i.e., whether a donation was made) between treatment and control groups.
+I compared the **response rate** (i.e., whether a donation was made) between treatment and control groups.
 
 The bar plot below shows that the **treatment group**, who received a matching grant offer, donated at a higher rate than the **control group**, who received a standard letter.
 
@@ -281,9 +281,9 @@ results_table
 
 <b> Charitable Contribution Made </b>
 
-We examine whether receiving a matching donation offer increases the likelihood of making a charitable donation. This is measured using the binary variable `gave`, which equals 1 if a donation was made and 0 otherwise.
+I examined whether receiving a matching donation offer increases the likelihood of making a charitable donation. This is measured using the binary variable `gave`, which equals 1 if a donation was made and 0 otherwise.
 
-We use both a **t-test** and a **bivariate linear regression** to assess the difference in response rate between treatment and control groups.
+I used both a **t-test** and a **bivariate linear regression** to assess the difference in response rate between treatment and control groups.
 
 <b> Results Summary </b>
 
@@ -353,7 +353,7 @@ probit_table
 
 <b> Probit Regression: Impact of Matching Grant on Donation Likelihood </b>
 
-To replicate **Table 3, Column (1)** from *Karlan & List (2007)*, we estimate a **Probit model** where the outcome is whether a donation was made (`gave = 1`) and the explanatory variable is assignment to treatment (`treatment = 1`).
+To replicate **Table 3, Column (1)** from *Karlan & List (2007)*, I estimated a **Probit model** where the outcome is whether a donation was made (`gave = 1`) and the explanatory variable is assignment to treatment (`treatment = 1`).
 
 
 <b> Our Probit Model Results </b>
@@ -434,11 +434,10 @@ t_test_results
 
 <b> Does Match Ratio Size Affect Donation Rates? </b>
 
-We investigate whether increasing the **match ratio** (from 1:1 to 2:1 to 3:1) has a statistically significant effect on the **likelihood that someone donates**.
+I investigated whether increasing the **match ratio** (from 1:1 to 2:1 to 3:1) has a statistically significant effect on the **likelihood that someone donates**.
 
-To do this, we run a series of **t-tests** comparing donation rates (`gave = 1`) across match ratio groups, restricting the sample to individuals who received a matching offer.
+To do this, I ran a series of **t-tests** comparing donation rates (`gave = 1`) across match ratio groups, restricting the sample to individuals who received a matching offer.
 
----
 
 <b> T-Test Results by Match Ratio </b>
 
@@ -569,12 +568,11 @@ comparison_table
 ```
 <b> Comparing Response Rates Across Match Ratios </b>
 
-We examine how the size of the match (1:1 vs. 2:1 vs. 3:1) influences the probability that an individual makes a donation. We do this in two ways:
+I examined how the size of the match (1:1 vs. 2:1 vs. 3:1) influences the probability that an individual makes a donation. I did this in two ways:
 
 1. **Directly from the data** by calculating average donation rates within each match group.
 2. **From the fitted coefficients** of a regression on dummy variables for each ratio.
 
----
 
 <b> Response Rate Differences </b>
 
@@ -585,7 +583,6 @@ We examine how the size of the match (1:1 vs. 2:1 vs. 3:1) influences the probab
 
 - These differences represent **increases in the probability of donating** when moving from one match ratio to a higher one.
 - The results are **identical across both methods**, which supports the robustness of the findings.
-
 
 
 <b> Interpretation </b>
@@ -636,7 +633,7 @@ amount_table
 ```
 <b> Size of Charitable Contribution </b>
 
-We tested whether receiving a matching donation offer affects the **amount** donated using a t-test and linear regression:
+I tested whether receiving a matching donation offer affects the **amount** donated using a t-test and linear regression:
 
 
 <b> Results </b>
@@ -690,9 +687,9 @@ amount_conditional_table
 ```
 <b> Conditional Donation Amount: Among Donors Only </b>
 
-To isolate the effect of treatment on the **amount given**, we restrict the sample to only those individuals who **made a donation** (`amount > 0`).
+To isolate the effect of treatment on the **amount given**, I restricted the sample to only those individuals who **made a donation** (`amount > 0`).
 
-We use both a t-test and a bivariate regression (`amount ~ treatment`) to compare average donation sizes between treatment and control groups.
+I used both a t-test and a bivariate regression (`amount ~ treatment`) to compare average donation sizes between treatment and control groups.
 
 <b> Results Summary </b>
 
@@ -708,7 +705,7 @@ We use both a t-test and a bivariate regression (`amount ~ treatment`) to compar
 
 - The treatment group **donated slightly less** on average, but the difference is **not statistically meaningful**.
 - This suggests that while the **match offer encourages more people to donate**, it does **not increase donation size** among those who would give anyway.
-- Because we only include those who donated, the **treatment effect here is not causal** — it’s **conditional** and may suffer from **selection bias**.
+- Because I only included those who donated, the **treatment effect here is not causal** — it’s **conditional** and may suffer from **selection bias**.
 
 <b> Conclusion </b>
 
@@ -754,9 +751,9 @@ plt.show()
 ```
 <b> Distribution of Donation Amounts Among Donors </b> 
 
-We now focus on individuals who **actually made a donation** (`amount > 0`) to analyze how much they gave, and whether the **treatment group** (those offered a matching donation) gave more than the control group.
+I am now focusing on individuals who **actually made a donation** (`amount > 0`) to analyze how much they gave, and whether the **treatment group** (those offered a matching donation) gave more than the control group.
 
-We visualize the **distribution of donation amounts** with two histograms — one for each group — and include a **red dashed line** indicating the **average donation** in each.
+I visualized the **distribution of donation amounts** with two histograms — one for each group — and include a **red dashed line** indicating the **average donation** in each.
 
 <b> Interpretation </b> 
 
@@ -764,7 +761,7 @@ We visualize the **distribution of donation amounts** with two histograms — on
 - The **average donation** in the **control group** was about **$45.54**, while the **treatment group** averaged **$43.87**.
 - This difference is **not statistically significant**, as confirmed by both a t-test and a regression limited to donors.
 
-<b> What Did We Learn? </b> 
+<b> What Did I Learn? </b> 
 
 - While the **matching donation offer increases the probability of donating**, it does **not increase the donation amount** among those who choose to give.
 - In fact, the average donation in the treatment group is slightly lower, though the difference is not meaningful.
@@ -829,10 +826,10 @@ To better understand the behavior of sample averages and connect to the concepts
 
 <b> Simulation Setup </b>
 
-- We simulate **100,000 random draws** from the **control group** donation distribution.
-- We simulate **10,000 random draws** from the **treatment group**.
-- For each of the 10,000 pairs, we calculate the difference: `treatment - control`.
-- We then compute the **cumulative average** of these 10,000 differences.
+- I simulated **100,000 random draws** from the **control group** donation distribution.
+- I simulated **10,000 random draws** from the **treatment group**.
+- For each of the 10,000 pairs, I calculated the difference: `treatment - control`.
+- I then computed the **cumulative average** of these 10,000 differences.
 
 
 <b> Plot Interpretation </b>
@@ -846,11 +843,11 @@ As the number of draws increases, the **cumulative average approaches the true d
 
 This illustrates the **Law of Large Numbers**: with enough data, sample-based estimates converge to the population value.
 
-<b> What We Learnt </b>
+<b> What I Learnt </b>
 
 > This simulation confirms that even in noisy, skewed data like donations, repeated sampling yields reliable estimates.
 
-It also demonstrates that the **difference in means** we compute from data is not just a fluke — it’s what we’d expect if we sampled repeatedly from the same distributions.
+It also demonstrates that the **difference in means** I computed from data is not just a fluke — it’s what we’d expect if I sampled repeatedly from the same distributions.
 
 ### Central Limit Theorem
 
@@ -888,14 +885,14 @@ plt.show()
 ```
 <b> Sampling Distributions at Different Sample Sizes </b>
 
-To mirror the exercise from Slide 44 of our first class, we simulate the **sampling distribution of the mean difference** in donation amount between the treatment and control groups.
+To mirror the exercise from Slide 44 of our first class, I simulated the **sampling distribution of the mean difference** in donation amount between the treatment and control groups.
 
-For each of four different sample sizes — **50, 200, 500, and 1000** — we:
+For each of four different sample sizes — **50, 200, 500, and 1000** — I:
 
-1. Draw `n` observations from each group.
-2. Compute the difference in mean donation: `treatment - control`.
-3. Repeat the process **1,000 times**.
-4. Plot the **histogram of those 1,000 average differences**.
+1. Drew `n` observations from each group.
+2. Computed the difference in mean donation: `treatment - control`.
+3. Repeated the process **1,000 times**.
+4. Plotted the **histogram of those 1,000 average differences**.
 
 <b> Histograms of Simulated Mean Differences </b>
 

@@ -11,7 +11,7 @@ jupyter: python3
 
 Dean Karlan at Yale and John List at the University of Chicago conducted a field experiment to test the effectiveness of different fundraising letters. They sent out 50,000 fundraising letters to potential donors, randomly assigning each letter to one of three treatments: a standard letter, a matching grant letter, or a challenge grant letter. They published the results of this experiment in the _American Economic Review_ in 2007. The article and supporting data are available from the [AEA website](https://www.aeaweb.org/articles?id=10.1257/aer.97.5.1774) and from Innovations for Poverty Action as part of [Harvard's Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27853&version=4.2).
 
-## Background 
+## Background 
 
 Charitable organizations often rely on fundraising letters to solicit donations, but little rigorous evidence has been available to guide how those letters should be designed. In a groundbreaking field experiment, economists Dean Karlan and John List set out to test how different **framing strategies and financial incentives** affect individual donation behavior.
 
@@ -24,7 +24,7 @@ Karlan and List aimed to answer a simple but important question:
 
 They also explored additional behavioral levers commonly used in fundraising, such as **challenge framing**, **suggested donation amounts**, and **goal-based appeals**.
 
-<b> Experimental Design </b>
+## Experimental Design 
 
 The letters fell into three broad treatment types:
 
@@ -48,7 +48,7 @@ The letters fell into three broad treatment types:
 
 Because each component (match ratio, threshold, suggested donation amount) was **randomized independently** within the matching grant group, the experiment had a **factorial design** — allowing the researchers to isolate and measure the effects of each variable.
 
-<b> Why This Matters </b>
+## Why This Matters 
 
 At the time of the study, fundraisers often relied on **rules of thumb and anecdotes**, lacking hard data on what actually drives giving. Karlan and List’s approach brought **scientific rigor** to the domain of nonprofit fundraising by:
 
@@ -56,7 +56,7 @@ At the time of the study, fundraisers often relied on **rules of thumb and anecd
 - Testing commonly used marketing strategies under **real-world conditions**
 - Generating insights with **practical implications** for organizations seeking to raise more money
 
-<b> Contribution to the Literature </b>
+## Contribution to the Literature 
 
 This study represents one of the first **large-scale natural field experiments** in charitable giving. It moved beyond lab settings and survey experiments to observe real decisions involving real money. The results helped bridge the gap between **behavioral economics** and **fundraising practice**, offering evidence-backed recommendations on:
 

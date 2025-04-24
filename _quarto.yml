@@ -13,8 +13,8 @@ website:
       - href: index.qmd
         text: About
       - resume.qmd
-      - href: hw1_questions.qmd
-        text: A/B Testing
+      - href: projects.qmd
+        text: Projects
 
 format:
   html:

@@ -1,7 +1,7 @@
 ---
 title: "Poisson Regression Examples"
-author: "Your Name"
-date: today
+author: "Nujoum Unus"
+date: May 7, 2025
 callout-appearance: minimal # this hides the blue "i" icon on .callout-notes
 ---
 
@@ -16,12 +16,76 @@ However, Blueprinty has collected data on 1,500 mature (non-startup) engineering
 
 
 ### Data
-
+:::: {.callout-note collapse="true"}
 _todo: Read in data._
 
+```{python}
+import pandas as pd
+
+# Blueprinty’s 1,500-firm sample
+blueprinty = pd.read_csv("blueprinty.csv")
+
+# 2017 NYC Airbnb listings (~40 k rows)
+airbnb = pd.read_csv("airbnb.csv")
+
+# # Quick sanity checks
+# print(f"Blueprinty shape: {blueprinty.shape}")
+# print(f"Airbnb shape: {airbnb.shape}")
+
+# blueprinty.head()  # optional: peek at the first 5 rows
+
+```
 _todo: Compare histograms and means of number of patents by customer status. What do you observe?_
 
-Blueprinty customers are not selected at random. It may be important to account for systematic differences in the age and regional location of customers vs non-customers.
+```{python}
+import matplotlib.pyplot as plt
+
+# Overlayed histograms
+fig, ax = plt.subplots(figsize=(8,5))
+
+# Map the 0/1 flag to readable labels
+label_map = {0: "Non-customer", 1: "Customer"}
+
+for flag, grp in blueprinty.groupby("iscustomer"):
+    grp["patents"].plot(
+        kind="hist",
+        bins=range(0, blueprinty["patents"].max() + 2),
+        alpha=0.55,
+        label=label_map[flag],
+        ax=ax
+    )
+
+ax.set_xlabel("Patents awarded (last 5 years)")
+ax.set_ylabel("Number of firms")
+ax.set_title("Distribution of Patents by Blueprinty Customer Status")
+ax.legend(title="Blueprinty user?")
+plt.tight_layout()
+
+# Mean patents for each group
+mean_patents = (
+    blueprinty.groupby("iscustomer")["patents"]
+    .mean()
+    .rename(index=label_map)
+)
+print("Mean patents: ", mean_patents)
+
+```
+::::
+#### Comparative Summary: Patent Output by Blueprinty Customer Status
+
+| Firm Group            | Mean Patents (5-year total) |
+|-----------------------|-----------------------------|
+| Blueprinty customers  | **4.13**                    |
+| Non-customers         | **3.47**                    |
+
+**Observations**
+
+1. **Higher average among customers** – Firms that license Blueprinty record, on average, **0.66 additional patents** over five years, an uplift of roughly **19 percent** relative to non-customers.  
+2. **Distributional shift, not overhaul** – Although both groups cluster between one and five patents, customer firms show a right-ward shift and a slightly thicker upper tail (extending beyond ten patents).  
+3. **Substantial overlap** – The histograms overlap heavily in the modal 0–5-patent range, indicating that many firms achieve modest patent activity regardless of Blueprinty usage.  
+
+**Interpretation caveat** – These descriptive statistics are correlational. More prolific filers may simply be more inclined to adopt specialized software. A Poisson regression that controls for firm age, region, and other covariates is required before drawing causal conclusions.
+
 
 _todo: Compare regions and ages by customer status. What do you observe?_
 

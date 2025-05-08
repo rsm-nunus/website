@@ -784,6 +784,32 @@ _todo: Assume the number of reviews is a good proxy for the number of bookings. 
 
 ### Exploratory Data Analysis – NYC Airbnb (2017)
 
+* **Sample size**  ≈ **40,000 listings** scraped in March 2017.  
+* **Observation unit**  = individual property-listing.
+
+| Variable group | Key fields | Quick facts / quirks |
+|----------------|-----------|----------------------|
+| **Listing IDs & dates** | `id`, `last_scraped`, `host_since`, `days` | `days` ranges from 10 to 3,200 (≈ 9 years on the platform). |
+| **Room characteristics** | `room_type`, `bathrooms`, `bedrooms` | Room-type mix: ~60 % entire homes, 38 % private rooms, 2 % shared rooms. Bedrooms mostly 1–2; bathrooms cluster at whole numbers (1, 2). |
+| **Pricing** | `price` (USD/night) | Median \$145, mean \$180; log-normal heavy tail—deluxe penthouses break \$1 000. |
+| **Popularity proxy** | `number_of_reviews` | Highly skewed: 37 % have **zero** reviews, median 7, max > 600. |
+| **Quality scores** | `review_scores_cleanliness`, `review_scores_location`, `review_scores_value` (1-10) | Most hosts score 8-10; scores are missing when no reviews exist. |
+| **Instant booking** | `instant_bookable` (t/f) | ~30 % of listings allow instant booking. |
+
+**Data-quality notes**
+
+* Review-based scores and `number_of_reviews` share the same missingness
+  pattern—no reviews ⇒ no scores.  
+* Prices, reviews, and `days` are strongly right-skewed;
+  visualisations benefit from log or square-root scaling.  
+* Categorical variables (`room_type`, `instant_bookable`) are tidy and
+  require only one-hot encoding for modelling.
+
+Overall, the file is rich enough to support Poisson/negative-binomial
+models of booking activity, with logical covariates for host tenure,
+room characteristics, and value signals (price, scores).
+
+
 #### Summary Tables
 ##### Numerics
 ```{python, code-fold=true}
@@ -862,7 +888,6 @@ plt.tight_layout()
 ::::
 
 
-
 :::: {.callout-note collapse="true"}
 #### Review activity  
 ```{python, code-fold=true, warning=false}
@@ -903,56 +928,8 @@ axes[1].set_title("Panel B  —  Positive review distribution (log y-scale)")
 
 fig.tight_layout()
 ```
-:::: {.callout-note collapse="true"}
-
-```{python, code-fold="true"}
-import pandas as pd, seaborn as sns, matplotlib.pyplot as plt
-
-airbnb = pd.read_csv("airbnb.csv")
-
-num_cols = [
-    "price", "number_of_reviews", "days",
-    "bathrooms", "bedrooms",
-    "review_scores_cleanliness", "review_scores_location",
-    "review_scores_value"
-]
-
-g = sns.displot(
-    data=airbnb[num_cols].melt(),
-    x="value",
-    col="variable",
-    col_wrap=3,
-    sharex=False,
-    sharey=False,
-    facet_kws=dict(margin_titles=True),
-    color="#1f77b4"
-)
-g.set_titles("{col_name}")
-plt.tight_layout()
-```
+:::: 
 
 
-```{python, code-fold=true, warning=false}
-import pandas as pd, seaborn as sns, matplotlib.pyplot as plt
 
-airbnb = pd.read_csv("airbnb.csv")
 
-num_cols = [
-    "price", "number_of_reviews", "days",
-    "bathrooms", "bedrooms",
-    "review_scores_cleanliness", "review_scores_location",
-    "review_scores_value"
-]
-
-g = sns.displot(
-    data=airbnb[num_cols].melt(),
-    x="value",
-    col="variable",
-    col_wrap=3,
-    facet_kws=dict(margin_titles=True, sharex=False, sharey=False),
-    color="#1f77b4"
-)
-g.set_titles("{col_name}")
-plt.tight_layout()
-
-```

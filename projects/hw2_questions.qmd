@@ -21,16 +21,12 @@ Blueprinty is a small firm that makes software for developing blueprints specifi
 However, Blueprinty has collected data on 1,500 mature (non-startup) engineering firms. The data include each firm's number of patents awarded over the last 5 years, regional location, age since incorporation, and whether or not the firm uses Blueprinty's software. The marketing team would like to use this data to make the claim that firms using Blueprinty's software are more successful in getting their patent applications approved.
 
 ### Data
-_todo: Read in data._
 
 ```{python}
 import pandas as pd
 
 # Blueprinty’s 1,500-firm sample
 blueprinty = pd.read_csv("blueprinty.csv")
-
-# 2017 NYC Airbnb listings (~40 k rows)
-airbnb = pd.read_csv("airbnb.csv")
 
 # Basic dimensions
 n_blue, p_blue = blueprinty.shape
@@ -55,7 +51,6 @@ print(f"Blueprinty dataset → {n_blue:,} firms × {p_blue} columns")
 | `age`         | Integer          | Years since incorporation (firm age).                                        |
 :::: 
 
-_todo: Compare histograms and means of number of patents by customer status. What do you observe?_
 
 ##### Distribution of Patents by Blueprinty Customer Status
 
@@ -117,7 +112,6 @@ print("Mean patents: ", mean_patents)
 **Interpretation caveat** – These descriptive statistics are correlational. More prolific filers may simply be more inclined to adopt specialized software. A Poisson regression that controls for firm age, region, and other covariates is required before drawing causal conclusions.
 
 
-_todo: Compare regions and ages by customer status. What do you observe?_
 
 #### Regional and Age Profiles by Blueprinty Customer Status
 
@@ -227,7 +221,6 @@ plt.tight_layout()
 
 Since our outcome variable of interest can only be small integer values per a set unit of time, we can use a Poisson density to model the number of patents awarded to each engineering firm over the last 5 years. We start by estimating a simple Poisson model via Maximum Likelihood.
 
-_todo: Write down mathematically the likelihood for_ $Y \sim \text{Poisson}(\lambda)$. Note that $f(Y|\lambda) = e^{-\lambda}\lambda^Y/Y!$.
 
 #### Likelihood for a Poisson-Distributed Count  
 
@@ -293,7 +286,6 @@ $$
 
 
 
-_todo: Code the likelihood (or log-likelihood) function for the Poisson model. This is a function of lambda and Y. For example:_
 
 ```
 poisson_loglikelihood <- function(lambda, Y){
@@ -348,7 +340,7 @@ def poisson_loglikelihood(lmbda: float, y):
     )
 ```
 
-_todo: Use your function to plot lambda on the horizontal axis and the likelihood (or log-likelihood) on the vertical axis for a range of lambdas (use the observed number of patents as the input for Y)._
+
 
 ### Visualising the Poisson Log-Likelihood  
 ```{python, code-fold=true}
@@ -414,7 +406,6 @@ The plot verifies that the maximum of the
 likelihood function aligns with the sample mean and gives us a tangible sense of how sensitive the likelihood is to deviations from the MLE.
 
 
-_todo: If you're feeling mathematical, take the first derivative of your likelihood or log-likelihood, set it equal to zero and solve for lambda. You will find lambda_mle is Ybar, which "feels right" because the mean of a Poisson distribution is lambda._
 
 #### Closed-form MLE for the Poisson rate  
 
@@ -477,7 +468,7 @@ $$
 $$
 
 
-_todo: Find the MLE by optimizing your likelihood function with optim() in R or sp.optimize() in Python._
+
 
 ### Numerical MLE with `scipy.optimize`
 
@@ -520,7 +511,7 @@ print(f"Sample mean (check)    :  ȳ = {blueprinty['patents'].mean():.4f}")
 
 Next, we extend our simple Poisson model to a Poisson Regression Model such that $Y_i = \text{Poisson}(\lambda_i)$ where $\lambda_i = \exp(X_i'\beta)$. The interpretation is that the success rate of patent awards is not constant across all firms ($\lambda$) but rather is a function of firm characteristics $X_i$. Specifically, we will use the covariates age, age squared, region, and whether the firm is a customer of Blueprinty.
 
-_todo: Update your likelihood or log-likelihood function with an additional argument to take in a covariate matrix X. Also change the parameter of the model from lambda to the beta vector. In this model, lambda must be a positive number, so we choose the inverse link function g_inv() to be exp() so that_ $\lambda_i = e^{X_i'\beta}$. _For example:_
+
 
 ```
 poisson_regression_likelihood <- function(beta, Y, X){
@@ -568,7 +559,6 @@ def poisson_regression_loglik(beta, y, X):
 | Log-likelihood term | $y\,\log\lambda - \lambda$ | $y_i(X_i\beta) - \exp(X_i\beta)$                 |
 | Inputs              | `lmbda`, `y`               | `beta`, `y`, `X`                                 |
 
-_todo: Use your function along with R's optim() or Python's sp.optimize() to find the MLE vector and the Hessian of the Poisson model with covariates. Specifically, the first column of X should be all 1's to enable a constant term in the model, and the subsequent columns should be age, age squared, binary variables for all but one of the regions, and the binary customer variable. Use the Hessian to find standard errors of the beta parameter estimates and present a table of coefficients and standard errors._
 
 ### Poisson-Regression MLE (age, region, customer)
 
@@ -639,7 +629,7 @@ After controlling for age and geography, Blueprinty adoption remains a **statist
 | **region\_SW** |      0.0506 |     0.0472 | —                                                                            |
 | **customer**   |  **0.2076** | **0.0309** | Blueprinty users have a 23 % higher expected patent rate (exp 0.208 ≈ 1.23). |
 
-_todo: Check your results using R's glm() function or Python sm.GLM() function._
+
 
 ### Cross-check with `statsmodels.GLM`
 
@@ -683,7 +673,6 @@ compare = pd.DataFrame({
 display(compare)
 ```
 
-_todo: Interpret the results._ 
 
 #### Interpretation of the Poisson-Regression Estimates  
 
@@ -712,7 +701,6 @@ _todo: Interpret the results._
 Overall, the regression supports Blueprinty’s marketing claim: even after adjusting for age and geography, customer firms exhibit a materially higher patent success rate.
 
 
-_todo: What do you conclude about the effect of Blueprinty's software on patent success? Because the beta coefficients are not directly interpretable, it may help to create two fake datasets: X_0 and X_1 where X_0 is the X data but with iscustomer=0 for every observation and X_1 is the X data but with iscustomer=1 for every observation. Then, use X_0 and your fitted model to get the vector of predicted number of patents (y_pred_0) for every firm in the dataset, and use X_1 to get Y_pred_1 for every firm. Then subtract y_pred_1 minus y_pred_0 and take the average of that vector of differences._
 
 ### Quantifying Blueprinty’s Impact via Counter-Factual Prediction  
 
@@ -780,9 +768,14 @@ AirBnB is a popular platform for booking short-term rentals. In March 2017, stud
 ::::
 
 
-_todo: Assume the number of reviews is a good proxy for the number of bookings. Perform some exploratory data analysis to get a feel for the data, handle or drop observations with missing values on relevant variables, build one or more models (e.g., a poisson regression model for the number of bookings as proxied by the number of reviews), and interpret model coefficients to describe variation in the number of reviews as a function of the variables provided._
 
-### Exploratory Data Analysis – NYC Airbnb (2017)
+
+### Dataset Overview
+
+```{python, code-fold="true"}
+# 2017 NYC Airbnb listings (~40 k rows)
+airbnb = pd.read_csv("airbnb.csv")
+```
 
 * **Sample size**  ≈ **40,000 listings** scraped in March 2017.  
 * **Observation unit**  = individual property-listing.
@@ -795,20 +788,72 @@ _todo: Assume the number of reviews is a good proxy for the number of bookings. 
 | **Popularity proxy** | `number_of_reviews` | Highly skewed: 37 % have **zero** reviews, median 7, max > 600. |
 | **Quality scores** | `review_scores_cleanliness`, `review_scores_location`, `review_scores_value` (1-10) | Most hosts score 8-10; scores are missing when no reviews exist. |
 | **Instant booking** | `instant_bookable` (t/f) | ~30 % of listings allow instant booking. |
+### Missing values
 
-**Data-quality notes**
+```{python, code-fold="true"}
+# ── 1.  Missing-value count & % ───────────────────────────────
+na_counts = airbnb.isna().sum()
+na_pct    = na_counts / len(airbnb) * 100
+na_table  = pd.DataFrame({"Missing" : na_counts, "Percent": na_pct.round(2)})
 
-* Review-based scores and `number_of_reviews` share the same missingness
-  pattern—no reviews ⇒ no scores.  
-* Prices, reviews, and `days` are strongly right-skewed;
-  visualisations benefit from log or square-root scaling.  
-* Categorical variables (`room_type`, `instant_bookable`) are tidy and
-  require only one-hot encoding for modelling.
+display("Missing-value summary", na_table)
+```
 
-Overall, the file is rich enough to support Poisson/negative-binomial
-models of booking activity, with logical covariates for host tenure,
-room characteristics, and value signals (price, scores).
+Before any modelling, we tidy the dataset and address the only material source of missingness.
 
+```{python, code-fold=true}
+import pandas as pd
+
+
+# ── Keep only pre-booking variables ───────────────────────────
+keep_cols = [
+    "number_of_reviews", "price", "days",
+    "room_type", "bedrooms", "bathrooms",
+    "instant_bookable"
+]
+df = airbnb[keep_cols]
+
+# ── Missing-value audit ───────────────────────────────────────
+na_pct = (df.isna().mean() * 100).round(2)
+print("Missing percentage per retained column:")
+print(na_pct.to_string())
+
+# ── Drop the handful of residual NAs (all <0.1 %) ─────────────
+df_clean = df.dropna().reset_index(drop=True)
+print(f"\nListings ready for analysis: {len(df_clean):,}")
+
+```
+
+* **Audit.** A quick NA scan (see table above) shows that the only material gaps are in the three review-score variables—each is missing for ≈ 38 % of listings, precisely those with **zero reviews**. All other fields (price, bedrooms, bathrooms, instant-booking flag, etc.) are virtually complete (< 0.1 % missing).
+
+* **Review-score variables dropped**  
+  * `review_scores_cleanliness`, `review_scores_location`, `review_scores_value` are structurally missing whenever a listing has *zero* reviews.  
+  * Because these scores are *post-booking feedback* (not pre-booking signals) and would require heavy imputation, we exclude them from the analysis.
+
+**Why `host_since` was not retained**
+
+* **Redundancy.** `days = last_scraped – host_since` already captures the information we care about—**how long the listing has been active on the platform**.  Including both `host_since` *and* `days` would double-count the same signal.
+
+* **Numeric vs. date format.** `host_since` is a raw date string, which a Poisson GLM can’t use directly without converting it to a numeric scale (e.g., epoch seconds).  The derived `days` variable is already in a model-friendly, interpretable unit (days on platform).
+
+* **Collinearity.** If we encoded `host_since` as a numeric variable, it would be perfectly (negatively) correlated with `days`, creating an identification problem.
+
+* **Interpretability.** Stakeholders can more readily grasp “this listing has been live for 900 days” than “host since 2014-07-12.”
+
+For those reasons, we keep **`days`**—the meaningful, non-redundant metric—and drop the raw `host_since` field from the modelling dataset.
+
+* **Retained variables**  
+  `number_of_reviews`, `price`, `days`, `room_type`, `bedrooms`,  
+  `bathrooms`, `instant_bookable`.
+
+* **Resulting completeness**  
+
+  | Field                 | Missing (%) |
+  |-----------------------|-------------|
+  | All retained columns  | **< 0.1 %** |
+
+
+### Exploratory Data Analysis – NYC Airbnb (2017)
 
 #### Summary Tables
 ##### Numerics
@@ -821,9 +866,6 @@ import seaborn as sns
 
 sns.set_style("whitegrid")
 sns.set_context("talk")
-
-# ── Load data ────────────────────────────────────────────────
-airbnb = pd.read_csv("airbnb.csv")
 
 # ── Numeric summary (printed to an interactive table if desired) ──
 num_cols = [
@@ -887,7 +929,6 @@ plt.tight_layout()
 ```
 ::::
 
-
 :::: {.callout-note collapse="true"}
 #### Review activity  
 ```{python, code-fold=true, warning=false}
@@ -930,6 +971,61 @@ fig.tight_layout()
 ```
 :::: 
 
+### Poisson Regression for Review Counts  
 
+We now model the expected number of reviews \(Y_i\) as a log-linear
+function of listing features:
 
+$$
+Y_i \;\big|\;X_i
+\;\sim\; \text{Poisson}\!\bigl(\lambda_i\bigr),
+\qquad
+\log \lambda_i
+= \beta_0
++ \beta_1 \log (\text{price}_i\!+\!1)
++ \beta_2 \,\text{days}_i
++ \beta_3 \,\text{instant\_bookable}_i
++ \boldsymbol{\beta}_{\text{room}}^\top \mathrm{D}_{i},
+$$
+
+where \($\mathrm{D}_{i}$\) is a set of dummies for **Private** and
+**Shared** rooms (Entire home = reference).
+
+```{python, code-fold="true"}
+import pandas as pd, numpy as np
+import statsmodels.formula.api as smf
+import statsmodels.api as sm
+
+df = df_clean.copy()
+df["log_price"]        = np.log1p(df["price"])
+df["instant_bookable"] = (df["instant_bookable"] == "t").astype(int)
+
+# correct reference label (no period)
+formula = (
+    "number_of_reviews ~ log_price + days + instant_bookable + "
+    "C(room_type, Treatment(reference='Entire home/apt'))"
+)
+
+poisson_res = smf.glm(formula, data=df, family=sm.families.Poisson()).fit()
+print(poisson_res.summary().tables[1])
+```
+#### Model coefficients – practical interpretation  
+
+| Predictor | β̂ | exp(β̂) | Meaning (all else equal) |
+|-----------|---:|--------:|--------------------------|
+| **Intercept** | 2.701 | — | Baseline log-rate for an **entire home**, non-instant-bookable, \$0 price (log_price = 0) listed today (days = 0). Not directly meaningful on its own. |
+| **Private room** | –0.127 | **0.88** | Private rooms receive **12 % fewer reviews** than entire homes, after adjusting for price, tenure, and instant-booking. |
+| **Shared room** | –0.381 | **0.68** | Shared rooms receive **32 % fewer reviews** than entire homes. |
+| **log(price+1)** | –0.003 | 0.997 | Price elasticity is essentially **zero** (p = 0.23); nightly rate has no detectable impact on review volume once other factors are held constant. |
+| **days on platform** | 5.06 × 10⁻⁵ | 1.00005 | Each extra day listed boosts expected reviews by **0.005 %**. Over a year (~365 days) that cumulates to **≈ 2 % more reviews**. |
+| **Instant bookable** | 0.379 | **1.46** | Listings that allow instant booking receive **46 % more reviews** on average. |
+
+**Take-aways**
+
+1. **Instant booking is the standout driver:** nearly 1.5× the review rate, indicating frictionless reservation strongly influences guest demand.
+2. **Room type matters, but in the opposite direction of the raw means:** once we control for tenure and instant booking, entire homes actually outperform private/shared rooms in review volume.
+3. **Price is a weak lever:** after adjusting for amenities and booking convenience, nightly rate shows no significant marginal effect on bookings.
+4. **Listing tenure exhibits diminishing gains:** an extra year on the platform adds only ~2 % to expected reviews, suggesting early momentum is more important than sheer longevity.
+
+These results pinpoint **instant-booking enablement** as the most actionable lever for hosts seeking to increase booking (review) counts, while room-type effects appear structural and price elasticity negligible within NYC’s 2017 market.
 

@@ -784,6 +784,8 @@ _todo: Assume the number of reviews is a good proxy for the number of bookings. 
 
 ### Exploratory Data Analysis – NYC Airbnb (2017)
 
+#### Summary Tables
+##### Numerics
 ```{python, code-fold=true}
 # see folded chunk for full EDA code: numeric summary, histograms, boxplots, scatter
 import pandas as pd
@@ -805,23 +807,18 @@ num_cols = [
 ]
 num_summary = airbnb[num_cols].describe().T.round(2)
 display(num_summary)
-
+```
+##### Reviews by room-type summary 
+```{python, code-fold="true"}
 # ── Reviews by room-type summary ─────────────────────────────
 reviews_room = airbnb.groupby("room_type")["number_of_reviews"].describe().round(2)
 display(reviews_room)
+```
+#### Distribution Plots
 
-# ── Histogram: number_of_reviews ────────────────────────────
-plt.figure(figsize=(8, 5))
-sns.histplot(
-    airbnb["number_of_reviews"],
-    bins=50,
-    log_scale=(False, True),    # log y-axis for visibility
-    color="#1f77b4"
-)
-plt.xlabel("Number of Reviews")
-plt.title("Distribution of Review Counts (log y-scale)")
-plt.tight_layout()
-
+:::: {.callout-note collapse="true"}
+#### Boxplot: Price by room_type 
+```{python, code-fold=true}
 # ── Boxplot: price by room_type ─────────────────────────────
 plt.figure(figsize=(8, 5))
 sns.boxplot(
@@ -836,6 +833,13 @@ plt.yscale("log")               # log price scale → compress outliers
 plt.ylabel("Price (log scale)")
 plt.title("Price Distribution by Room Type")
 plt.tight_layout()
+```
+:::: 
+
+
+:::: {.callout-note collapse="true"}
+#### Price vs Reviews
+```{python, code-fold=true}
 
 # ── Scatter: price vs reviews (sample 3k for clarity) ───────
 plt.figure(figsize=(7, 5))
@@ -855,36 +859,100 @@ plt.title("Price vs Reviews (sample = 3 000 listings)")
 plt.legend(title="Room type", loc="upper right")
 plt.tight_layout()
 ```
+::::
 
-```{python, code-fold=true}
-import seaborn as sns, matplotlib.pyplot as plt
-import pandas as pd
+
+
+:::: {.callout-note collapse="true"}
+#### Review activity  
+```{python, code-fold=true, warning=false}
+import pandas as pd, matplotlib.pyplot as plt, seaborn as sns
+
+sns.set_style("whitegrid")
+sns.set_context("talk")
 
 airbnb = pd.read_csv("airbnb.csv")
 
-# ▸ Remove zero-review listings OR add 1 to every count
-data = airbnb["number_of_reviews"]
-data_pos = data[data > 0]          # keep strictly positive counts
+# ── Split: zeros vs. positive counts ───────────────────────────
+is_zero = airbnb["number_of_reviews"] == 0
+count_table = is_zero.value_counts().rename({True:"0 reviews", False:"≥ 1 review"})
 
-plt.figure(figsize=(8,5))
+# ── Positive counts for Panel B ────────────────────────────────
+pos_counts = airbnb.loc[~is_zero, "number_of_reviews"]
+
+# ── Figure with two panels ─────────────────────────────────────
+fig, axes = plt.subplots(1, 2, figsize=(12, 5), gridspec_kw=dict(width_ratios=[1,2]))
+
+# Panel A: bar chart of review status
+axes[0].bar(count_table.index, count_table.values, color="#1f77b4")
+axes[0].set_ylabel("Number of listings")
+axes[0].set_title("Panel A  —  Review status")
+axes[0].set_xlabel("")
+
+# Panel B: log-y histogram of positive review counts
 sns.histplot(
-    data_pos,
+    pos_counts,
     bins=50,
+    ax=axes[1],
     color="#1f77b4",
     edgecolor="white"
 )
-plt.yscale("log")                  # set log scale after plotting
-plt.xlabel("Number of Reviews (positive counts only)")
-plt.title("Distribution of Review Counts (log y-scale)")
+axes[1].set_yscale("log")
+axes[1].set_xlabel("Number of reviews (≥ 1)")
+axes[1].set_title("Panel B  —  Positive review distribution (log y-scale)")
+
+fig.tight_layout()
+```
+:::: {.callout-note collapse="true"}
+
+```{python, code-fold="true"}
+import pandas as pd, seaborn as sns, matplotlib.pyplot as plt
+
+airbnb = pd.read_csv("airbnb.csv")
+
+num_cols = [
+    "price", "number_of_reviews", "days",
+    "bathrooms", "bedrooms",
+    "review_scores_cleanliness", "review_scores_location",
+    "review_scores_value"
+]
+
+g = sns.displot(
+    data=airbnb[num_cols].melt(),
+    x="value",
+    col="variable",
+    col_wrap=3,
+    sharex=False,
+    sharey=False,
+    facet_kws=dict(margin_titles=True),
+    color="#1f77b4"
+)
+g.set_titles("{col_name}")
 plt.tight_layout()
+```
 
-sns.histplot(
-    data + 1,                      # add 1 to every observation
-    bins=50,
-    color="#1f77b4",
-    edgecolor="white"
+
+```{python, code-fold=true, warning=false}
+import pandas as pd, seaborn as sns, matplotlib.pyplot as plt
+
+airbnb = pd.read_csv("airbnb.csv")
+
+num_cols = [
+    "price", "number_of_reviews", "days",
+    "bathrooms", "bedrooms",
+    "review_scores_cleanliness", "review_scores_location",
+    "review_scores_value"
+]
+
+g = sns.displot(
+    data=airbnb[num_cols].melt(),
+    x="value",
+    col="variable",
+    col_wrap=3,
+    facet_kws=dict(margin_titles=True, sharex=False, sharey=False),
+    color="#1f77b4"
 )
-plt.yscale("log")
-plt.xlabel("Number of Reviews (+1 shift)")
+g.set_titles("{col_name}")
+plt.tight_layout()
 
 ```
